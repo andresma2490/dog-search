@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DogService } from '@app/dogs/services/dog.service';
 
 @Component({
   selector: 'app-dog-list',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dog-list.component.scss'],
 })
 export class DogListComponent implements OnInit {
-  constructor() {}
+  dogList$ = this.dogService.dogList$;
 
-  ngOnInit(): void {}
+  constructor(private dogService: DogService) {}
+
+  ngOnInit(): void {
+    this.dogService.getDogList().subscribe();
+  }
 }

@@ -54,7 +54,7 @@ export class DogService {
           map((res) => {
             return {
               breed: breed,
-              images: res.message.slice(0, 6),
+              images: res.message.slice(0, 8),
             };
           }),
           tap((dog) => this.dogList.next([...this.dogList.value, dog]))

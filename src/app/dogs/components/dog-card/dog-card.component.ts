@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dog-card',
@@ -6,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dog-card.component.scss'],
 })
 export class DogCardComponent implements OnInit {
+  @Input() image: string = '';
+  @Input() title: string = '';
+  @Input() subtitle: string = '';
+  liked: boolean = false;
+
   constructor() {}
 
   ngOnInit(): void {}

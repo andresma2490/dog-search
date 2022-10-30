@@ -14,6 +14,13 @@ const routes: Routes = [
         (m) => m.DogListModule
       ),
   },
+  {
+    path: '**',
+    loadChildren: () =>
+      import('./page-not-found/page-not-found.module').then(
+        (m) => m.PageNotFoundModule
+      ),
+  },
 ];
 
 @NgModule({

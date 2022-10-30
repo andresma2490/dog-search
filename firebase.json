@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": "dist/dog-app",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": ""
+      }
+    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}

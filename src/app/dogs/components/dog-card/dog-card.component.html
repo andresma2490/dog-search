@@ -1,18 +1,17 @@
 <mat-card class="dog-card">
   <div>
-    <mat-card-title>{{ title | titlecase }}</mat-card-title>
-    <mat-card-subtitle>{{ subtitle }}</mat-card-subtitle>
+    <mat-card-title>{{ dog.breed.split("/")[0] | titlecase }}</mat-card-title>
+    <mat-card-subtitle>{{ dog.breed.split("/")[1] }}</mat-card-subtitle>
   </div>
-  <img mat-card-image [src]="image" alt="Dog's photo" />
+  <img mat-card-image [src]="dog.image" alt="Dog's photo" />
   <mat-card-actions>
-    <button
-      mat-icon-button
-      aria-label="heart button"
-      (click)="this.liked = !this.liked"
-    >
+    <button mat-icon-button aria-label="heart button" (click)="like()">
       <mat-icon [ngStyle]="{ color: liked ? 'red' : 'darkgray' }"
         >favorite</mat-icon
       >
+    </button>
+    <button mat-icon-button aria-label="share button" (click)="shareDog()">
+      <mat-icon>share</mat-icon>
     </button>
   </mat-card-actions>
 </mat-card>

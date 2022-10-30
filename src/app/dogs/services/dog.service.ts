@@ -4,16 +4,20 @@ import { BehaviorSubject, forkJoin, throwError } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
-import { DogListDTO, BreedListDTO } from '../models/dogs';
+import { Dog, DogListDTO, BreedListDTO } from '../models/dogs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DogService {
-  private dogList = new BehaviorSubject<any[]>([]);
+  private dogList = new BehaviorSubject<Dog[]>([]);
   dogList$ = this.dogList.asObservable();
 
   constructor(private http: HttpClient) {}
+
+  setDogList(value: Dog[]) {
+    this.dogList.next(value);
+  }
 
   getDogListAutoComplete() {
     return this.http
@@ -22,7 +26,7 @@ export class DogService {
   }
 
   getDogList(breed: string) {
-    this.dogList.next([]);
+    this.setDogList([]);
     return this.http
       .get<BreedListDTO>(`${environment.API_URL}/breed/${breed}/list`)
       .pipe(
@@ -52,14 +56,28 @@ export class DogService {
       breeds.map((breed) => {
         return this.getDogImage(breed).pipe(
           map((res) => {
-            return {
-              breed: breed,
-              images: res.message.slice(0, 8),
-            };
+            return res.message.slice(0, 8).map((image) => {
+              return {
+                breed: breed,
+                image: image,
+              };
+            });
           }),
-          tap((dog) => this.dogList.next([...this.dogList.value, dog]))
+          tap((dogs: Dog[]) =>
+            this.dogList.next([...this.dogList.value, ...dogs])
+          )
         );
       })
     );
+  }
+
+  getFavoritesList() {
+    return JSON.parse(localStorage.getItem('favoritesDog') || '[]');
+  }
+
+  addToFavorites(dog: Dog) {
+    let favoritesDog = this.getFavoritesList();
+    favoritesDog.push(dog);
+    localStorage.setItem('favoritesDog', JSON.stringify(favoritesDog));
   }
 }

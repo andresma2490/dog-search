@@ -1,14 +1,15 @@
 <div class="container mt-3">
   <app-dog-search></app-dog-search>
+  <div class="text-end">
+    <a
+      (click)="showFavorites()"
+      [routerLink]="['/dogs']"
+      [queryParams]="{ show: 'favorites_only' }"
+      >see my favorites</a
+    >
+  </div>
   <div class="d-grid mt-3">
-    <ng-container *ngFor="let dog of dogList$ | async">
-      <app-dog-card
-        *ngFor="let image of dog.images"
-        [title]="dog.breed.split('/')[0]"
-        [subtitle]="dog.breed.split('/')[1]"
-        [image]="image"
-      >
-      </app-dog-card>
-    </ng-container>
+    <app-dog-card *ngFor="let dog of dogList$ | async" [dog]="dog">
+    </app-dog-card>
   </div>
 </div>

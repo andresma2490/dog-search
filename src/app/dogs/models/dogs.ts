@@ -11,3 +11,8 @@ export interface BreedListDTO extends Omit<DogListDTO, 'message'> {
 export interface DogList {
   [key: string]: string;
 }
+
+export interface Dog {
+  breed: string;
+  image: string;
+}

@@ -11,7 +11,5 @@ export class DogListComponent implements OnInit {
 
   constructor(private dogService: DogService) {}
 
-  ngOnInit(): void {
-    this.dogService.getDogList().subscribe();
-  }
+  ngOnInit(): void {}
 }

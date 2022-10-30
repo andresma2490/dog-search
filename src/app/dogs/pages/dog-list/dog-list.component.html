@@ -1,9 +1,9 @@
 <div class="container mt-3">
   <app-dog-search></app-dog-search>
-  <div class="d-grid mt-3">
-    <app-dog-card></app-dog-card>
-    <app-dog-card></app-dog-card>
-    <app-dog-card></app-dog-card>
-    <app-dog-card></app-dog-card>
-  </div>
+  <ng-container *ngFor="let breed of dogList$ | async">
+    <div class="d-grid mt-3">
+      <app-dog-card *ngFor="let dog of breed.images"> </app-dog-card>
+    </div>
+    <hr />
+  </ng-container>
 </div>
